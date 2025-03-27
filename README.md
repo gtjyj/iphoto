@@ -109,3 +109,11 @@
 建议先启动前端
 ```bash
 # 启动调试
+pnpm dev:web
+```
+
+### 启动服务端
+```bash
+# 启动调试
+pnpm dev:server
+```
