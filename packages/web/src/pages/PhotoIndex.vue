@@ -29,66 +29,9 @@
           <div style="height: 8px; width: 100%; background: white"></div>
         </div>
         <div class="pc-photo-container" v-if="width >= 800">
-          <div>
-            <div class="photos" :style="{ display: index % 4 === 0 ? 'block' : 'none' }" v-for="(item, index) in photoList" :key="index">
-              <template v-if="index % 4 === 0">
-                <van-image
-                  style="border-radius: 10px; overflow: hidden"
-                  :width="item.width"
-                  :height="item.height"
-                  fit="cover"
-                  lazy-load
-                  @click="onPreview(index)"
-                  :src="item.thumb"
-                >
-                  <template v-slot:loading>
-                    <van-loading type="spinner" size="20" />
-                  </template>
-                </van-image>
-              </template>
-            </div>
-          </div>
-          <div>
-            <div class="photos" :style="{ display: index % 4 === 1 ? 'block' : 'none' }" v-for="(item, index) in photoList" :key="index">
-              <template v-if="index % 4 === 1">
-                <van-image
-                  style="border-radius: 10px; overflow: hidden"
-                  :width="item.width"
-                  :height="item.height"
-                  fit="cover"
-                  lazy-load
-                  @click="onPreview(index)"
-                  :src="item.thumb"
-                >
-                  <template v-slot:loading>
-                    <van-loading type="spinner" size="20" />
-                  </template>
-                </van-image>
-              </template>
-            </div>
-          </div>
-          <div>
-            <div class="photos" :style="{ display: index % 4 === 2 ? 'block' : 'none' }" v-for="(item, index) in photoList" :key="index">
-              <template v-if="index % 4 === 2">
-                <van-image
-                  style="border-radius: 10px; overflow: hidden"
-                  :width="item.width"
-                  :height="item.height"
-                  fit="cover"
-                  lazy-load
-                  @click="onPreview(index)"
-                  :src="item.thumb"
-                >
-                  <template v-slot:loading>
-                    <van-loading type="spinner" size="20" />
-                  </template>
-                </van-image>
-              </template>
-            </div>
-          </div>
-          <div>
-            <div class="photos" :style="{ display: index % 4 === 3 ? 'block' : 'none' }" v-for="(item, index) in photoList" :key="index">
-              <template v-if="index % 4 === 3">
+          <div v-for="(cols, idx) in colList" :key="idx" ref="colRef">
+            <div class="photos" :style="{ display: index % colList.length === idx ? 'block' : 'none' }" v-for="(item, index) in photoList" :key="index">
+              <template v-if="index % colList.length === idx">
                 <van-image
                   style="border-radius: 10px; overflow: hidden"
                   :width="item.width"
@@ -134,6 +77,8 @@
   import { cloneDeep } from 'lodash-es';
   const noInit = ref('{__VAR_siteName__}'.includes('__VAR_siteName__'));
   const photoList = ref([]);
+  const cols = ref(4);
+  const colList = ref([]);
   const loading = ref(false);
   const finished = ref(false);
   const showOverText = ref(false);
@@ -141,9 +86,13 @@
   const width = ref(0);
   const count = ref(0);
   const total = ref(0);
+  const colRef = ref([]);
 
   onMounted(() => {
     width.value = getClientWidth();
+    Array.from({ length: cols.value }).map(() => {
+      colList.value.push([]);
+    });
     // if (width.value > 900) width.value = 900;
   });
 
@@ -168,13 +117,21 @@
           } else {
             handedList = mobileView(list);
           }
-          photoList.value = photoList.value.concat(
-            handedList.map((o) => {
-              o.thumb = o.cos ? o.cos : `/api/photos/image/${o.fileKey}`;
-              o.hd = o.cosHD ? o.cosHD : `/api/photos/hd/${o.fileKey}`;
-              return o;
-            })
-          );
+
+          const toShow = handedList.map((o) => {
+            o.thumb = o.cos ? o.cos : `/api/photos/image/${o.fileKey}`;
+            o.hd = o.cosHD ? o.cosHD : `/api/photos/hd/${o.fileKey}`;
+            return o;
+          });
+          photoList.value = photoList.value.concat(toShow);
+
+          // if (width.value >= 800) {
+          //   toShow.forEach((item, index) => {
+          //     console.log(colRef.value[0].clientHeight);
+          //     const colIndex = index % cols.value;
+          //     colList.value[colIndex].push(item);
+          //   });
+          // }
 
           if (totalCount.value === 0 || list.length < limit) {
             finished.value = true;
@@ -233,7 +190,7 @@
   };
 
   const calcedWidth = computed(() => {
-    return width.value >= 800 ? width.value / 4 : width.value;
+    return width.value >= 800 ? width.value / cols.value : width.value;
     // return width.value;
   });
 
