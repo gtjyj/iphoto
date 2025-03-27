@@ -13,9 +13,12 @@
 [https://sojs.cn/blog](https://sojs.cn/blog) 或者 [https://iphoto.sojs.cn](https://iphoto.sojs.cn)
 
 ### 展示页面
+#### 移动端效果
 ![示例图片](images/1.png)
 
 ![示例图片](images/2.png)
+#### pc端效果
+![示例图片](images/6.png)
 ### 管理页面
 ![示例图片](images/3.png)
 
