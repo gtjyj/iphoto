@@ -49,9 +49,9 @@
                 uploadFile('header', v);
               }
             "
-            :cropWidth="800"
+            :cropWidth="1000"
             :cropHeight="400"
-            :previewWidth="400"
+            :previewWidth="500"
             :previewHeight="200"
           />
         </template>
