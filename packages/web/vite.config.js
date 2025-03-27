@@ -25,7 +25,7 @@ function replaceStringPlugin() {
     name: 'replace-string',
     transform(code, id) {
       if (Object.keys(siteConfig).length) {
-        if (/\.vue$|\.css$|\.js$/.test(id)) {
+        if (/\.vue$|\.css$|\.js|\.less$/.test(id)) {
           Object.keys(siteConfig).forEach((key) => {
             const regex = new RegExp(`{__VAR_${key}__}`, 'g');
             code = code.replace(regex, siteConfig[key] || '');
