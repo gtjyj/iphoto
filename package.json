@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:web": "pnpm -r --filter=./packages/web run start",
-    "build:web": "pnpm -r --filter=./packages/web run build",
-    "dev:server": "pnpm -r --filter=./packages/server run start",
-    "build:server": "pnpm -r --filter=./packages/server run build",
-    "start:server": "pnpm build:server && pm2 start ./packages/server/dist/main.js --name iphoto",
-    "stop:server": "pm2 stop iphoto",
+    "dev:web": "pnpm -r --filter=web run start",
+    "build:web": "pnpm -r --filter=web run build",
+    "dev:server": "pnpm -r --filter=server run start",
+    "build:server": "pnpm -r --filter=server run build",
+    "start:server": "pnpm -r --filter=server run start:prod",
+    "stop:server": "pnpm -r --filter=server run stop",
     "start:server-1panel": "pnpm build:server && cd ./packages/server/ && node dist/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

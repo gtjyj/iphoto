@@ -104,7 +104,8 @@
   const onSubmit = async () => {
     let hasEmptyField = false;
     initData.value.forEach((item) => {
-      if (item.require) {
+      // 仅检查显示的字段是否为必填项
+      if (shouldShow(item) && item.require) {
         if (!formData.value[item.key]) {
           hasEmptyField = true;
         }
