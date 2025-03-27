@@ -16,7 +16,6 @@ async function checkWebStatus() {
   return new Promise<boolean>((resolve) => {
     const req = http
       .get(target, (res) => {
-        // 缓存结果
         isWebStartedCache = true;
         resolve(true);
         res.resume(); // 消耗响应数据以释放内存
@@ -51,7 +50,7 @@ export async function webIsStart(): Promise<boolean> {
 export function webResourceAccess(req: Request, res: Response) {
   webIsStart().then((isTargetReachable) => {
     if (isTargetReachable) {
-      // logger.info(target, '读取资源');
+      logger.info('【开发模式】从web服务读取资源', req.path);
       proxy.web(req, res, { target }, (err) => {
         logger.error('Proxy error:', err);
         res.status(500).send('Proxy error');

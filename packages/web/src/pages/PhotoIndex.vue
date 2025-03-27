@@ -188,7 +188,6 @@
   const mobileView = (list) => {
     const copyList = cloneDeep(list);
     if (copyList.length) {
-      console.log(11111);
       for (let i = 0; i < copyList.length; i) {
         const item = copyList[i];
         const next = copyList[i + 1];
@@ -249,14 +248,14 @@
   const setTwo = (curr) => {
     if (curr.direction === '1') {
       // 水平
-      curr.width = (calcedWidth.value / 3) * 2 - 14;
+      curr.width = (calcedWidth.value / 3) * 2 - 12;
     } else {
-      curr.width = calcedWidth.value / 3 - 14;
+      curr.width = calcedWidth.value / 3 - 12;
     }
     curr.height = calcedWidth.value / 2.4;
   };
   const setVerticalTwo = (curr) => {
-    curr.width = calcedWidth.value / 2 - 14;
+    curr.width = calcedWidth.value / 2 - 12;
     curr.height = (calcedWidth.value / 3) * 2;
   };
   const onPreview = (idx) => {

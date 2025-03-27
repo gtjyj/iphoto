@@ -27,6 +27,7 @@ export class ConfigFetcher {
             resolve(res.data.data);
           })
           .catch((error) => {
+            this.promise = null;
             reject(error);
           });
       });
