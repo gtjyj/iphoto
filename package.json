@@ -10,7 +10,7 @@
     "build:server": "pnpm -r --filter=server run build",
     "start:server": "pnpm -r --filter=server run start:prod",
     "stop:server": "pnpm -r --filter=server run stop",
-    "start:server-1panel": "pnpm build:server && cd ./packages/server/ && node dist/main.js",
+    "start:server-nopm2": "pnpm build:server && cd ./packages/server/ && node dist/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
