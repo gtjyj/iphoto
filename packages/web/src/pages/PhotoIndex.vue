@@ -51,7 +51,7 @@
   import { ImagePreview } from 'vant';
   import { getClientWidth } from '../libs/utils';
   import axios from 'axios';
-  import { cloneDeep } from 'lodash';
+  import { cloneDeep } from 'lodash-es';
   const noInit = ref('{__VAR_siteName__}'.includes('__VAR_siteName__'));
   const photoList = ref([]);
   const loading = ref(false);
