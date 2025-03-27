@@ -28,16 +28,96 @@
           <div style="width: 100%; height: 10px; background: #f0f0f0; margin-top: 5px"></div>
           <div style="height: 8px; width: 100%; background: white"></div>
         </div>
-        <div class="photos" v-for="(item, index) in photoList" :key="index">
-          <van-image style="border-radius: 5px" :width="item.width" :height="item.height" fit="cover" lazy-load @click="onPreview(index)" :src="item.thumb">
-            <template v-slot:loading>
-              <van-loading type="spinner" size="20" />
-            </template>
-          </van-image>
-          <div v-if="false" class="love-btn" @click="onLove(item)">
-            <van-icon v-if="!item.isLove" name="like-o" />
-            <van-icon v-else name="like" style="color: #eb0027" />
-            <span v-if="item.love" style="font-size: 18px; margin-left: 5px; padding-bottom: 5px">{{ item.love > 999 ? '999+' : item.love }}</span>
+        <div class="pc-photo-container" v-if="width >= 800">
+          <div>
+            <div class="photos" :style="{ display: index % 4 === 0 ? 'block' : 'none' }" v-for="(item, index) in photoList" :key="index">
+              <template v-if="index % 4 === 0">
+                <van-image
+                  style="border-radius: 10px; overflow: hidden"
+                  :width="item.width"
+                  :height="item.height"
+                  fit="cover"
+                  lazy-load
+                  @click="onPreview(index)"
+                  :src="item.thumb"
+                >
+                  <template v-slot:loading>
+                    <van-loading type="spinner" size="20" />
+                  </template>
+                </van-image>
+              </template>
+            </div>
+          </div>
+          <div>
+            <div class="photos" :style="{ display: index % 4 === 1 ? 'block' : 'none' }" v-for="(item, index) in photoList" :key="index">
+              <template v-if="index % 4 === 1">
+                <van-image
+                  style="border-radius: 10px; overflow: hidden"
+                  :width="item.width"
+                  :height="item.height"
+                  fit="cover"
+                  lazy-load
+                  @click="onPreview(index)"
+                  :src="item.thumb"
+                >
+                  <template v-slot:loading>
+                    <van-loading type="spinner" size="20" />
+                  </template>
+                </van-image>
+              </template>
+            </div>
+          </div>
+          <div>
+            <div class="photos" :style="{ display: index % 4 === 2 ? 'block' : 'none' }" v-for="(item, index) in photoList" :key="index">
+              <template v-if="index % 4 === 2">
+                <van-image
+                  style="border-radius: 10px; overflow: hidden"
+                  :width="item.width"
+                  :height="item.height"
+                  fit="cover"
+                  lazy-load
+                  @click="onPreview(index)"
+                  :src="item.thumb"
+                >
+                  <template v-slot:loading>
+                    <van-loading type="spinner" size="20" />
+                  </template>
+                </van-image>
+              </template>
+            </div>
+          </div>
+          <div>
+            <div class="photos" :style="{ display: index % 4 === 3 ? 'block' : 'none' }" v-for="(item, index) in photoList" :key="index">
+              <template v-if="index % 4 === 3">
+                <van-image
+                  style="border-radius: 10px; overflow: hidden"
+                  :width="item.width"
+                  :height="item.height"
+                  fit="cover"
+                  lazy-load
+                  @click="onPreview(index)"
+                  :src="item.thumb"
+                >
+                  <template v-slot:loading>
+                    <van-loading type="spinner" size="20" />
+                  </template>
+                </van-image>
+              </template>
+            </div>
+          </div>
+        </div>
+        <div class="mobile-photo-container" v-if="width < 800">
+          <div class="photos" v-for="(item, index) in photoList" :key="index">
+            <van-image :width="item.width" :height="item.height" fit="cover" lazy-load @click="onPreview(index)" :src="item.thumb">
+              <template v-slot:loading>
+                <van-loading type="spinner" size="20" />
+              </template>
+            </van-image>
+            <div v-if="false" class="love-btn" @click="onLove(item)">
+              <van-icon v-if="!item.isLove" name="like-o" />
+              <van-icon v-else name="like" style="color: #eb0027" />
+              <span v-if="item.love" style="font-size: 18px; margin-left: 5px; padding-bottom: 5px">{{ item.love > 999 ? '999+' : item.love }}</span>
+            </div>
           </div>
         </div>
       </van-list>
@@ -64,7 +144,7 @@
 
   onMounted(() => {
     width.value = getClientWidth();
-    if (width.value > 900) width.value = 900;
+    // if (width.value > 900) width.value = 900;
   });
 
   let page = 0;
@@ -83,11 +163,11 @@
           total.value = totalCount;
           loading.value = false;
           let handedList = [];
-          // if (width.value >= 900) {
-          //   handedList = pcView(list);
-          // } else {
-          handedList = mobileView(list);
-          // }
+          if (width.value >= 800) {
+            handedList = pcView(list);
+          } else {
+            handedList = mobileView(list);
+          }
           photoList.value = photoList.value.concat(
             handedList.map((o) => {
               o.thumb = o.cos ? o.cos : `/api/photos/image/${o.fileKey}`;
@@ -108,6 +188,7 @@
   const mobileView = (list) => {
     const copyList = cloneDeep(list);
     if (copyList.length) {
+      console.log(11111);
       for (let i = 0; i < copyList.length; i) {
         const item = copyList[i];
         const next = copyList[i + 1];
@@ -136,50 +217,29 @@
     return copyList;
   };
 
-  // const pcView = (list) => {
-  //   const copyList = cloneDeep(list);
-  //   if (copyList.length) {
-  //     for (let i = 0; i < copyList.length; i) {
-  //       const item = copyList[i];
-  //       const next = copyList[i + 1];
-
-  //       if (!next) {
-  //         setOne(item); // 没有后面
-  //         i += 1;
-  //       } else if (next.direction !== item.direction) {
-  //         // curr和next方向不一样
-  //         if (item.direction === '2') setVerticalTwo(item);
-  //         else {
-  //           setOne(item); // 没有后面
-  //         }
-  //         if (next.direction === '2') setVerticalTwo(next);
-  //         else {
-  //           setOne(next); // 没有后面
-  //         }
-  //         i = i + 2;
-  //       } else {
-  //         // 方向一样
-  //         if (item.direction === '2' && next.direction === '2') {
-  //           setVerticalTwo(item);
-  //           setVerticalTwo(next);
-  //           i = i + 2;
-  //         } else {
-  //           setOne(item);
-  //           i = i + 1;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return copyList;
-  // };
+  const pcView = (list) => {
+    const copyList = cloneDeep(list);
+    if (copyList.length) {
+      for (let i = 0; i < copyList.length; i += 1) {
+        const curr = copyList[i];
+        curr.width = '100%';
+        if (curr.direction === '2') {
+          curr.height = calcedWidth.value * 1.37;
+        } else {
+          curr.height = (calcedWidth.value / 3) * 2;
+        }
+      }
+    }
+    return copyList;
+  };
 
   const calcedWidth = computed(() => {
-    // return width.value >= 900 ? width.value / 2 : width.value;
-    return width.value;
+    return width.value >= 800 ? width.value / 4 : width.value;
+    // return width.value;
   });
 
   const setOne = (curr) => {
-    curr.width = calcedWidth.value - 12;
+    curr.width = calcedWidth.value - 14;
     if (curr.direction === '2') {
       curr.height = calcedWidth.value * 1.5;
     } else {
@@ -189,14 +249,14 @@
   const setTwo = (curr) => {
     if (curr.direction === '1') {
       // 水平
-      curr.width = (calcedWidth.value / 3) * 2 - 12;
+      curr.width = (calcedWidth.value / 3) * 2 - 14;
     } else {
-      curr.width = calcedWidth.value / 3 - 12;
+      curr.width = calcedWidth.value / 3 - 14;
     }
     curr.height = calcedWidth.value / 2.4;
   };
   const setVerticalTwo = (curr) => {
-    curr.width = calcedWidth.value / 2 - 12;
+    curr.width = calcedWidth.value / 2 - 14;
     curr.height = (calcedWidth.value / 3) * 2;
   };
   const onPreview = (idx) => {
@@ -215,7 +275,7 @@
   };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
   body {
     padding: 0;
     margin: 0;
@@ -229,15 +289,48 @@
   }
   .container {
     background: white;
-    max-width: 900px;
+    /* max-width: 900px; */
     width: 100%;
     display: inline-block;
+  }
+  .mobile-photo-container {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .pc-photo-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    gap: 10px;
+    box-sizing: border-box;
+    > div {
+      display: flex;
+      flex-wrap: wrap;
+      width: 25%;
+      flex-direction: column;
+      gap: 10px;
+      > div {
+        width: 100%;
+      }
+    }
   }
   .photos {
     position: relative;
     display: inline-block;
     justify-content: space-between;
-    margin: 0 3px;
+  }
+  @media (max-width: 799px) {
+    .photos {
+      margin: 0 3px 3px;
+    }
+  }
+  @media (min-width: 800px) {
+    .photos {
+      margin: 0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
   }
   .header {
     position: relative;
