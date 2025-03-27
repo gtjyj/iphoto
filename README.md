@@ -8,6 +8,10 @@
 存储方式多样，支持：本地文件、腾讯云COS、阿里云OSS、WebDav（通过Alist链接更多的云盘、网盘、cos）
 
 ## 示意图
+
+运行效果：
+[https://sojs.cn/blog](https://sojs.cn/blog) 或者 [https://iphoto.sojs.cn](https://iphoto.sojs.cn)
+
 ### 展示页面
 ![示例图片](images/1.png)
 
