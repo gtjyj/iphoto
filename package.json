@@ -16,7 +16,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/preset-env": "^7.26.9",
-    "pm2": "^6.0.5"
+    "@babel/preset-env": "^7.26.9"
   }
 }

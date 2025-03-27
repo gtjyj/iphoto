@@ -8,7 +8,7 @@
   "scripts": {
     "build": "nest build",
     "start": "NODE_ENV=develop nest start --watch",
-    "start:prod": "pnpm build && pm2 restart dist/main.js --name iphoto",
+    "start:prod": "pnpm build && pm2 restart ./dist/main.js --name iphoto",
     "stop": "pm2 stop iphoto"
   },
   "dependencies": {
