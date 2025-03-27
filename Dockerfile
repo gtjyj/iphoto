@@ -16,5 +16,7 @@ RUN pnpm install
 # 构建前端项目
 RUN pnpm build:web
 
+EXPOSE 4000
+
 # 启动前端服务
 CMD ["pnpm", "start:web"]
