@@ -97,14 +97,14 @@
   });
 
   let page = 0;
-  const limit = 10;
+  const limit = 20;
   const loadList = () => {
     page += 1;
     loading.value = true;
     axios
       .post('/api/photos/items', {
         page,
-        pageSize: limit
+        limit
       })
       .then((result) => {
         if (result.data.code === 0) {
