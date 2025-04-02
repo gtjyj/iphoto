@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^0.27.2",
+    "axios": "^0.30.0",
     "cropperjs": "1.6.2",
     "lodash-es": "^4.17.21",
     "unplugin-auto-import": "^19.1.1",

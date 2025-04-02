@@ -102,7 +102,7 @@ importers:
       '@babel/eslint-parser': ^7.18.2
       '@vitejs/plugin-vue': ^2.3.3
       '@vue/cli-plugin-babel': ^5.0.7
-      axios: ^0.27.2
+      axios: ^0.30.0
       cropperjs: 1.6.2
       eslint: ^8.18.0
       eslint-config-prettier: ^8.10.0
@@ -120,7 +120,7 @@ importers:
       vue: ^3.2.25
       vue-router: ^4.5.0
     dependencies:
-      axios: 0.27.2
+      axios: 0.30.0
       cropperjs: 1.6.2
       lodash-es: 4.17.21
       unplugin-auto-import: 19.1.1
@@ -3683,6 +3683,16 @@ packages:
       - debug
     dev: false
 
+  /axios/0.30.0:
+    resolution: {integrity: sha512-Z4F3LjCgfjZz8BMYalWdMgAQUnEtKDmpwNHjh/C8pQZWde32TF64cqnSeyL3xD/aTIASRU30RHTNzRiV/NpGMg==}
+    dependencies:
+      follow-redirects: 1.15.9
+      form-data: 4.0.2
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /babel-loader/8.4.1_yhx67fuywqkvpc6wycwfpdvcw4:
     resolution: {integrity: sha512-nXzRChX+Z1GoE6yWavBQg6jDslyFF3SDjl2paADuoQtQW10JqShJt62R6eJQ5m/pjJFDT8xgKIWSP85OY8eXeA==}
     engines: {node: '>= 8.9'}
@@ -6769,6 +6779,10 @@ packages:
     dependencies:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
+    dev: false
+
+  /proxy-from-env/1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
     dev: false
 
   /prr/1.0.1:
