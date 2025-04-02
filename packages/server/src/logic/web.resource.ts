@@ -58,16 +58,15 @@ export function webResourceAccess(req: Request, res: Response) {
     } else {
       const webDist = join(process.env.ROOT_DIR + '/htmldist/');
       const webHtml = join(process.env.ROOT_DIR + '/html/');
-      // logger.info(webDist, '读取资源');
+      const htmlDir = existsSync(webDist) ? webDist : webHtml;
       const filePath = join(
-        existsSync(webDist) ? webDist : webHtml,
+        htmlDir,
         req.path === '/' ? 'index.html' : req.path,
       );
-
       readFile(filePath, (err, data) => {
         if (err) {
           // 如果文件不存在，返回 index.html
-          const indexPath = join(webDist, 'index.html');
+          const indexPath = join(htmlDir, 'index.html');
           readFile(indexPath, (indexErr, indexData) => {
             if (indexErr) {
               logger.error('Error reading index.html:', indexErr);
