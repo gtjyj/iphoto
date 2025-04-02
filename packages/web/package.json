@@ -1,0 +1,35 @@
+{
+  "name": "web",
+  "private": true,
+  "version": "0.0.0",
+  "type":"module",
+  "scripts": {
+    "start": "vite --mode development",
+    "build": "vite build --mode production",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cropperjs": "1.6.2",
+    "lodash-es": "^4.17.21",
+    "unplugin-auto-import": "^19.1.1",
+    "unplugin-vue-components": "^28.4.1",
+    "vant": "^3.5.2",
+    "vue": "^3.2.25",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.18.2",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vue/cli-plugin-babel": "^5.0.7",
+    "eslint": "^8.18.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.1.1",
+    "less": "^4.2.2",
+    "prettier": "^2.7.1",
+    "vite": "^2.9.9",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-prettier": "^0.0.6"
+  }
+}

@@ -1,0 +1,17 @@
+# 忽略所有node_modules目录
+**/node_modules
+
+**/userdata
+
+# 忽略开发环境文件
+.git
+.gitignore
+.DS_Store
+*.md
+*.log
+.vscode
+
+# 忽略构建产物（如果使用多阶段构建）
+dist
+build
+coverage

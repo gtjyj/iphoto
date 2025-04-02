@@ -1,0 +1,23 @@
+{
+  "name": "i-photo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:web": "pnpm -r --filter=web run start",
+    "build:web": "cd ./packages/web && pnpm run build",
+    "dev:server": "pnpm -r --filter=server run start",
+    "build:server": "pnpm -r --filter=server run build",
+    "start:server": "cd ./packages/server/ && npm run start:prod",
+    "stop:server": "pnpm -r --filter=server run stop",
+    "start:server-nopm2": "pnpm build:server && cd ./packages/server/ && node dist/main.js",
+    "start:docker-server":"cd ./packages/server/ &&node ./dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/preset-env": "^7.26.9"
+  }
+}

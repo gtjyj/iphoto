@@ -1,0 +1,77 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "nest build",
+    "start": "NODE_ENV=develop nest start --watch",
+    "start:prod": "pm2 start ./dist/main.js --name iphoto",
+    "stop": "pm2 stop iphoto"
+  },
+  "dependencies": {
+    "@nestjs/class-validator": "^0.13.4",
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^4.0.1",
+    "@nestjs/core": "^10.0.0",
+    "@nestjs/platform-express": "^10.4.15",
+    "@nestjs/throttler": "^6.4.0",
+    "@nestjs/typeorm": "^11.0.0",
+    "ali-oss": "^6.22.0",
+    "cors": "^2.8.5",
+    "cos-nodejs-sdk-v5": "^2.14.6",
+    "dotenv": "^16.4.7",
+    "exifreader": "^4.26.2",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "http-proxy": "^1.18.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "qrcode": "^1.5.4",
+    "sharp": "^0.33.5",
+    "typeorm": "^0.3.21",
+    "uuid": "^11.1.0",
+    "webdav": "^4.0.0",
+    "reflect-metadata":"^0.2.0",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^10.0.0",
+    "@nestjs/schematics": "^10.0.0",
+    "@types/express": "^5.0.0",
+    "@types/node": "^20.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.0",
+    "source-map-support": "^0.5.21",
+    "ts-loader": "^9.4.3",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.1.3",
+    "@types/multer": "^1.4.12",
+    "@types/winston": "^2.4.4"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}
