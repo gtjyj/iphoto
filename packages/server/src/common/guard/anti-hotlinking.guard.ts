@@ -25,10 +25,14 @@ export class AntiHotlinkingGuard implements CanActivate {
     }
     const refererUrl = new URL(referer);
     const cfgUrl = String(SiteConfig.getInstance().getValue('domain'));
+    const urls = cfgUrl.split(';');
     let isAllowed = false;
     try {
-      const domain = new URL(cfgUrl);
-      isAllowed = domain.host.includes(refererUrl.host);
+      isAllowed = urls.some((url) => {
+        const domain = new URL(url);
+        // console.log(refererUrl.host, domain.host);
+        return domain.host.includes(refererUrl.host);
+      });
     } catch (e) {
       logger.error(e);
       logger.warn(

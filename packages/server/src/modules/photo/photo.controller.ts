@@ -30,9 +30,10 @@ export class PhotoController {
   @Get('qrcode')
   @Public()
   async getQrCode(@Res() res) {
-    const domain = SiteConfig.getInstance().getValue('domain');
+    const domain = String(SiteConfig.getInstance().getValue('domain'));
+    const [first] = domain.split(';');
     try {
-      const qrCodeDataUrl = await qrcode.toDataURL(domain);
+      const qrCodeDataUrl = await qrcode.toDataURL(first);
       const base64Image = qrCodeDataUrl.split(';base64,').pop();
       const buffer = Buffer.from(base64Image, 'base64');
 
@@ -71,15 +72,21 @@ export class PhotoController {
   ) {
     const cosResponse = await this.photoService.getCompressedPhoto(fileKey);
     const lowerCaseHeaders = Object.fromEntries(
-      Object.entries(cosResponse.headers).map(([key, value]) => [key.toLowerCase(), value])
+      Object.entries(cosResponse.headers).map(([key, value]) => [
+        key.toLowerCase(),
+        value,
+      ]),
     );
     const lastModified = lowerCaseHeaders['last-modified'];
     const etag = lowerCaseHeaders['etag'];
-  
+
     const lowerCaseReqHeaders = Object.fromEntries(
-      Object.entries(req.headers).map(([key, value]) => [key.toLowerCase(), value])
+      Object.entries(req.headers).map(([key, value]) => [
+        key.toLowerCase(),
+        value,
+      ]),
     );
-  
+
     // 检查缓存头，忽略大小写
     if (
       lowerCaseReqHeaders['if-modified-since'] === lastModified ||
@@ -87,7 +94,7 @@ export class PhotoController {
     ) {
       return res.status(304).send();
     }
-  
+
     // 设置响应头
     for (const [key, value] of Object.entries(cosResponse.headers)) {
       res.setHeader(key, value);
@@ -106,15 +113,21 @@ export class PhotoController {
   ) {
     const file = await this.photoService.getThumbPhoto(fileKey);
     const lowerCaseHeaders = Object.fromEntries(
-      Object.entries(file.headers).map(([key, value]) => [key.toLowerCase(), value])
+      Object.entries(file.headers).map(([key, value]) => [
+        key.toLowerCase(),
+        value,
+      ]),
     );
     const lastModified = lowerCaseHeaders['last-modified'];
     const etag = lowerCaseHeaders['etag'];
-  
+
     const lowerCaseReqHeaders = Object.fromEntries(
-      Object.entries(req.headers).map(([key, value]) => [key.toLowerCase(), value])
+      Object.entries(req.headers).map(([key, value]) => [
+        key.toLowerCase(),
+        value,
+      ]),
     );
-  
+
     // 检查缓存头，忽略大小写
     if (
       lowerCaseReqHeaders['if-modified-since'] === lastModified ||
@@ -122,7 +135,7 @@ export class PhotoController {
     ) {
       return res.status(304).send();
     }
-  
+
     // 设置响应头
     for (const [key, value] of Object.entries(file.headers)) {
       res.setHeader(key, value);
@@ -141,15 +154,21 @@ export class PhotoController {
   ) {
     const cosResponse = await this.photoService.getStatic(fileKey);
     const lowerCaseHeaders = Object.fromEntries(
-      Object.entries(cosResponse.headers).map(([key, value]) => [key.toLowerCase(), value])
+      Object.entries(cosResponse.headers).map(([key, value]) => [
+        key.toLowerCase(),
+        value,
+      ]),
     );
     const lastModified = lowerCaseHeaders['last-modified'];
     const etag = lowerCaseHeaders['etag'];
-  
+
     const lowerCaseReqHeaders = Object.fromEntries(
-      Object.entries(req.headers).map(([key, value]) => [key.toLowerCase(), value])
+      Object.entries(req.headers).map(([key, value]) => [
+        key.toLowerCase(),
+        value,
+      ]),
     );
-  
+
     // 检查缓存头，忽略大小写
     if (
       lowerCaseReqHeaders['if-modified-since'] === lastModified ||
@@ -157,7 +176,7 @@ export class PhotoController {
     ) {
       return res.status(304).send();
     }
-  
+
     // 设置响应头
     for (const [key, value] of Object.entries(cosResponse.headers)) {
       res.setHeader(key, value);

@@ -40,12 +40,36 @@
         "require":true
     },
     {
+        "key":"DBTYPE",
+        "label":"数据库",
+        "type":"radio",
+        "value":"sqlite",
+        "require":true,
+        "placeholder":"数据库的类型",
+        "options":[
+            {
+                "key":"sqlite",
+                "label":"SQLite"
+            },
+            {
+                "key":"mysql",
+                "label":"MySql"
+            }
+        ]
+    },
+    {
         "key":"DB_MYSQL",
         "label":"MySql数据库地址",
         "type":"text",
         "value":"",
         "placeholder":"数据库地址,IP或者域名",
-        "require":true
+        "require":true,
+        "when":[
+            {
+                "key":"DBTYPE",
+                "value":"mysql"
+            }
+        ]
     },
     {
         "key":"DB_USER",
@@ -53,7 +77,13 @@
         "type":"text",
         "value":"root",
         "placeholder":"请输入数据库用户名",
-        "require":true
+        "require":true,
+        "when":[
+            {
+                "key":"DBTYPE",
+                "value":"mysql"
+            }
+        ]
     },
     {
         "key":"DB_PASS",
@@ -61,7 +91,13 @@
         "type":"password",
         "value":"",
         "placeholder":"请输入数据库密码",
-        "require":true
+        "require":true,
+        "when":[
+            {
+                "key":"DBTYPE",
+                "value":"mysql"
+            }
+        ]
     },
     {
         "key":"DB_PORT",
@@ -69,7 +105,13 @@
         "type":"text",
         "value":"3306",
         "placeholder":"请数据数据库端口",
-        "require":true
+        "require":true,
+        "when":[
+            {
+                "key":"DBTYPE",
+                "value":"mysql"
+            }
+        ]
     },
     {
         "key":"DB_NAME",
@@ -77,7 +119,13 @@
         "type":"text",
         "value":"iphoto",
         "placeholder":"请输入数据库名称",
-        "require":true
+        "require":true,
+        "when":[
+            {
+                "key":"DBTYPE",
+                "value":"mysql"
+            }
+        ]
     },
     {
         "key":"STORAGE",

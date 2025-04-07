@@ -20,7 +20,9 @@ import {
 } from './init/system.config.utils';
 import { updateStaticResource, webResourceAccess } from './logic/web.resource';
 import logger from './utils/logger';
-
+import { webcrypto as crypto } from 'crypto';
+//@ts-ignore
+global.crypto = crypto;
 async function bootstrap() {
   const { NestFactory } = await import('@nestjs/core');
   const { AppModule } = await import('./app.module');

@@ -57,12 +57,14 @@ class Logger {
   }
 
   public error(...args: any[]): void {
-    const message = args.map((arg) => {
-      if (arg instanceof Error) {
-        return `${arg.message}\n${arg.stack}`;
-      }
-      return String(arg);
-    }).join(' ');
+    const message = args
+      .map((arg) => {
+        if (arg instanceof Error) {
+          return `${arg.message}\n${arg.stack}`;
+        }
+        return String(arg);
+      })
+      .join(' ');
     this.logger.error('【错误】:' + message);
   }
 

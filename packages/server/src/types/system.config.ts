@@ -6,6 +6,7 @@ export type SystemConfig = {
   LOGIN_EXPIRED: string;
   REQUEST_LIMIT_INTERVAL: string;
   REQUEST_LIMIT: string;
+  DBTYPE: string;
   DB_MYSQL: string;
   DB_USER: string;
   DB_PASS: string;

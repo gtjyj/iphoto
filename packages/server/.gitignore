@@ -5,7 +5,7 @@
 /config.json
 /html
 /htmldist
-/userdata
+/userdata*
 # Logs
 logs
 *.log

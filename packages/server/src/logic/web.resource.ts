@@ -50,7 +50,7 @@ export async function webIsStart(): Promise<boolean> {
 export function webResourceAccess(req: Request, res: Response) {
   webIsStart().then((isTargetReachable) => {
     if (isTargetReachable) {
-      logger.info('【开发模式】从web服务读取资源', req.path);
+      // logger.info('【开发模式】从web服务读取资源', req.path);
       proxy.web(req, res, { target }, (err) => {
         logger.error('Proxy error:', err);
         res.status(500).send('Proxy error');

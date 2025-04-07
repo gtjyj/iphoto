@@ -1,14 +1,29 @@
+import { getSystemConfigs } from 'src/init/check.config';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-
+const config = getSystemConfigs();
 @Entity()
 export class Photo {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn(
+    config.DBTYPE === 'sqlite'
+      ? {
+          type: 'integer',
+          name: 'rowid',
+        }
+      : {},
+  )
   id: number;
 
   @Column()
   fileKey: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column(
+    config.DBTYPE === 'sqlite'
+      ? {
+          type: 'datetime',
+          default: () => 'CURRENT_TIMESTAMP',
+        }
+      : { type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' },
+  )
   createdAt: Date;
 
   @Column({ type: 'int' })

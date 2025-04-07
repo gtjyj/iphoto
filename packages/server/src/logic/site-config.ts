@@ -4,24 +4,15 @@ import { getSystemConfigs } from 'src/init/check.config';
 import { resolve } from 'path';
 import { writeFileSync } from 'fs';
 import logger from 'src/utils/logger';
+import { getDBConnConfig } from 'src/utils/util';
 const systemConfig = getSystemConfigs();
 // 加载 .env 文件
 
-const { DB_MYSQL, DB_PORT, DB_USER, DB_PASS, DB_NAME } = systemConfig;
-if (!DB_MYSQL) {
+const { DBTYPE } = systemConfig;
+if (!DBTYPE) {
   throw new Error('数据库配置错误');
 }
-const AppDataSource = new DataSource({
-  type: 'mysql',
-  host: DB_MYSQL || 'localhost',
-  port: parseInt(DB_PORT, 10) || 3306,
-  username: DB_USER || 'your_username',
-  password: DB_PASS || 'your_password',
-  database: DB_NAME || 'your_database',
-  entities: [MysqlConfig],
-  synchronize: true,
-  logging: false,
-});
+const AppDataSource = new DataSource(getDBConnConfig());
 
 export const siteConfigKeys = [
   'siteName',

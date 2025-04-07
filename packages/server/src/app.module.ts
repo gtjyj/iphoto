@@ -8,21 +8,15 @@ import { APP_GUARD } from '@nestjs/core';
 import { LoginModule } from './modules/login/login.module';
 import { LoginService } from './modules/login/login.service';
 import { AdminModule } from './modules/admin/admin.module';
-import { getSystemConfigs } from './init/check.config';
 import { AuthGuard } from './common/guard/auth.guard';
-const systemConfig = getSystemConfigs();
+import { getDBConnConfig } from './utils/util';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: systemConfig.DB_MYSQL,
-      port: parseInt(systemConfig.DB_PORT),
-      username: systemConfig.DB_USER,
-      password: systemConfig.DB_PASS,
-      database: systemConfig.DB_NAME,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      useFactory: () => {
+        return getDBConnConfig();
+      },
     }),
     PhotoModule,
     LoginModule,

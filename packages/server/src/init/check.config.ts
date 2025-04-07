@@ -4,6 +4,7 @@ import { existsSync, writeFileSync } from 'fs';
 import { InitInputs, SystemConfig } from 'src/types/system.config';
 import { readFileSync } from 'fs';
 import logger from 'src/utils/logger';
+import { getDBConnConfig } from 'src/utils/util';
 
 const configPath = resolve(process.env.ROOT_DIR + '/userdata/config.json');
 let configs;
@@ -38,17 +39,21 @@ function checkParamsRequire(
 }
 
 async function checkDBisValid(params: SystemConfig): Promise<boolean> {
-  const { DB_MYSQL, DB_USER, DB_PASS, DB_PORT, DB_NAME } = params;
-  const dataSource = new DataSource({
-    type: 'mysql',
-    host: DB_MYSQL,
-    port: Number(DB_PORT),
-    username: DB_USER,
-    password: DB_PASS,
-    database: 'mysql',
-    synchronize: false,
-    logging: false,
-  });
+  const { DBTYPE, DB_NAME, INSTANCE_ID } = params;
+
+  if (DBTYPE === 'sqlite') {
+    // SQLite不需要连接检查，只需确保文件存在
+    const dbPath = resolve(
+      process.env.ROOT_DIR + `/userdata/${INSTANCE_ID}.sqlite`,
+    );
+    if (!existsSync(dbPath)) {
+      writeFileSync(dbPath, ''); // 创建空数据库文件
+    }
+    return true;
+  }
+
+  // 原有MySQL检查逻辑保持不变
+  const dataSource = new DataSource(getDBConnConfig());
   try {
     await dataSource.initialize();
     const queryRunner = dataSource.createQueryRunner();
